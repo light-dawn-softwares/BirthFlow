@@ -53,9 +53,8 @@ class _HomeState extends State<HomeScreen> {
                   return ListTile(
                     titleAlignment: ListTileTitleAlignment.center,
                     title: Text('Partograma $index'),
-                    trailing:  const SizedBox(
-                      width:
-                          100, 
+                    trailing: const SizedBox(
+                      width: 100,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.center,
