@@ -41,12 +41,14 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.8.1
   retrofit: ^4.0.3
+  sqflite: ^2.3.0
 
 
 
 dev_dependencies:
   auto_route_generator: ^7.3.1
   build_runner: ^2.4.6
+  floor_generator: ^1.4.2
   flutter_test:
     sdk: flutter
   freezed: ^2.4.5

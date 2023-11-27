@@ -13,8 +13,9 @@ include: package:lint/strict.yaml
 # You might want to exclude auto-generated files from dart analysis
 analyzer:
   exclude:
-    -'**.freezed.dart'
-    -'**.g.dart'
+   - '**.g.dart'
+   - '**.freezed.dart'
+   
 
 linter:
   # The lint rules applied to this project can be customized in the
