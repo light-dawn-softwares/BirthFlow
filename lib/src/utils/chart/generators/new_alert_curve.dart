@@ -35,7 +35,7 @@ class NewAlertCurveGenerator implements IGenerator {
       (dropdown) => dropdown.ramOrRem == true,
       orElse: () => CervicalDilation(
         idCervicalDilation: 0,
-        idPartograph: 0,
+        partographId: 0,
         value: 0,
         time: DateTime.now(),
         ramOrRem: false,

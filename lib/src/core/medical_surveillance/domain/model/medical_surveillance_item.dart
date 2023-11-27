@@ -3,7 +3,7 @@ import 'package:birthflow/src/core/medical_surveillance/domain/model/pain.dart';
 class MedicalSurveillanceItem {
   MedicalSurveillanceItem({
     required this.idMedicalSurve,
-    required this.idPartograph,
+    required this.partographId,
     required this.time,
     required this.maternalPosition,
     required this.arterialPressure,
@@ -14,7 +14,7 @@ class MedicalSurveillanceItem {
     required this.pain,
   });
   final int idMedicalSurve;
-  final int idPartograph;
+  final int partographId;
   final DateTime time;
   final String maternalPosition;
   final String arterialPressure;
