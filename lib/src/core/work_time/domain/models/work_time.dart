@@ -4,13 +4,13 @@ import 'package:birthflow/src/core/work_time/domain/models/lib/posicion.dart';
 
 class WorkTime {
   WorkTime({
-    required this.idPartograph,
+    required this.partographId,
     required this.posicion,
     required this.paridad,
     required this.membranas,
   });
 
-  int idPartograph;
+  int partographId;
   Posicion posicion;
   Paridad paridad;
   Membranas membranas;

@@ -18,7 +18,7 @@ class _NewPartographState extends State<NewPartographScreen>
   late final TabController _tabController;
 
   final WorkTime workTime = WorkTime(
-    idPartograph: -1,
+    partographId: -1,
     posicion: const Posicion.init(),
     paridad: const Paridad.init(),
     membranas: const Membranas.init(),
