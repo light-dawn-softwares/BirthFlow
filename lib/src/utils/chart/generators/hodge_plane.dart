@@ -1,11 +1,11 @@
-import 'package:birthflow/src/core/hodge_plane/domain/models/hodge_plane.dart';
+import 'package:birthflow/src/core/vpp/domain/models/vpp.dart';
 import 'package:birthflow/src/utils/chart/generators/generator_interface.dart';
 import 'package:birthflow/src/utils/chart/lib/helper.dart';
 import 'package:birthflow/src/utils/chart/models/chart_point.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class HodgePlaneGenerator implements IGenerator {
-  final List<HodgePlane> hodgePlaneList;
+  final List<Vpp> hodgePlaneList;
   final double firstPoint;
 
   HodgePlaneGenerator({
@@ -29,14 +29,14 @@ class HodgePlaneGenerator implements IGenerator {
 
       final timeResult = timeDecimalValue - firstPoint;
 
-      final double y = hodgePlaneList[index].position.value;
+      final double y = hodgePlaneList[index].hodgePlanePosition.value;
       final currentPoint = ChartPoint(
         x: timeResult,
         y: y,
         radius: 10,
         strokeWidth: 2,
         fillColor: charts.Color.transparent,
-        shape: hodgePlaneList[index].plane.value,
+        shape: hodgePlaneList[index].position.value,
       );
 
       points.add(currentPoint);
