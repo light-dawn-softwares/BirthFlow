@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:birthflow/src/presentation/partograph/widgets/expandable_fab.dart';
 import 'package:birthflow/src/presentation/partograph/widgets/hodge_plane_dialog_widget.dart';
+import 'package:birthflow/src/presentation/partograph/widgets/medical_surveillance_dialog_widget.dart';
 import 'package:birthflow/src/presentation/partograph/widgets/medical_surveillance_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,6 +39,12 @@ class _ChartState extends State<ChartScreen> {
       DeviceOrientation.landscapeLeft,
     ]);
 
+      void changedScrollFab(int page) {
+    setState(() {
+      _scrollFab = page;
+    });
+  }
+
     final List<Widget> fabs = [
       ExpandableFab(
         distance: 70.0,
@@ -52,16 +59,14 @@ class _ChartState extends State<ChartScreen> {
           const HodgePlaneDialogWidget(),
         ],
       ),
-      FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
+      const MedicalSurveillanceDialogWidget(),
     ];
 
     return Scaffold(
       body: SafeArea(
         child: PageView(
           controller: controller,
+          onPageChanged: changedScrollFab,
           scrollDirection: Axis.vertical,
           children: [
             Expanded(

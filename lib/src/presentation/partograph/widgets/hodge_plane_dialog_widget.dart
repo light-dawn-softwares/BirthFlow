@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_setters_without_getters
 
-import 'package:birthflow/src/core/hodge_plane/domain/models/hodge_plane.dart';
+import 'package:birthflow/src/core/vpp/domain/models/vpp.dart';
 import 'package:birthflow/src/presentation/partograph/widgets/expandable_fab.dart';
 import 'package:birthflow/src/presentation/widgets/dropdown_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class HodgePlaneDialogWidget extends StatelessWidget {
 
     final _ResultValues value = _ResultValues(
       position: HodgePlanePosition.values.first,
-      plane: Plane.values.first,
+      plane: Position.values.first,
       time: today,
     );
 
@@ -55,10 +55,10 @@ class HodgePlaneDialogWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: DropdownButtonWidget<Plane>(
+              child: DropdownButtonWidget<Position>(
                 labelText: 'Plano',
-                enumValues: Plane.values,
-                onValueChanged: (Plane plane) {
+                enumValues: Position.values,
+                onValueChanged: (Position plane) {
                   value.setPlane = plane;
                 },
               ),
@@ -126,7 +126,7 @@ class HodgePlaneDialogWidget extends StatelessWidget {
 
 class _ResultValues {
   HodgePlanePosition? position;
-  Plane? plane;
+  Position? plane;
   DateTime? time;
 
   _ResultValues({
@@ -139,7 +139,7 @@ class _ResultValues {
     this.position = position;
   }
 
-  set setPlane(Plane plane) {
+  set setPlane(Position plane) {
     this.plane = plane;
   }
 

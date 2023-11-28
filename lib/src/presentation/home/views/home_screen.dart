@@ -107,6 +107,9 @@ class _HomeState extends State<HomeScreen> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
+                        onTap: () {
+                          context.router.push(const PartographRoute());
+                        },
                         subtitle: const Text('012HMK231D2095 - 01/01/2023'),
                         onLongPress: () => showModalBottomSheet<void>(
                           context: context,
