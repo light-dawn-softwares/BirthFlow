@@ -4,6 +4,7 @@ class MedicalSurveillanceItem {
   MedicalSurveillanceItem({
     required this.idMedicalSurve,
     required this.partographId,
+    required this.header,
     required this.time,
     required this.maternalPosition,
     required this.arterialPressure,
@@ -15,6 +16,7 @@ class MedicalSurveillanceItem {
   });
   final int idMedicalSurve;
   final int partographId;
+  final String header;
   final DateTime time;
   final String maternalPosition;
   final String arterialPressure;
