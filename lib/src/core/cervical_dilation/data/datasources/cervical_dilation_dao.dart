@@ -3,7 +3,7 @@ import 'package:floor/floor.dart';
 
 @dao
 abstract class CervicalDilationDao {
-  @Query('SELECT * FROM CervicalDilation WHERE id_cervicalDilation = :id')
+  @Query('SELECT * FROM cervical_dilations WHERE partograph_id = :id')
   Future<List<CervicalDilationDto>> findByID(int id);
 
   @Insert(onConflict: OnConflictStrategy.ignore)

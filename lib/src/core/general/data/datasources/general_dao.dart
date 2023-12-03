@@ -3,10 +3,10 @@ import 'package:floor/floor.dart';
 
 @dao
 abstract class GeneralDao {
-  @Query('SELECT * FROM Generals')
+  @Query('SELECT * FROM generals')
   Future<List<GeneralDto>> findAllGenerals();
 
-  @Query('SELECT * FROM Generals WHERE id_partograph = :partographId')
+  @Query('SELECT * FROM generals WHERE partograph_id = :partographId')
   Future<GeneralDto?> findGeneralById(int partographId);
 
   @Insert(onConflict: OnConflictStrategy.replace)
@@ -15,6 +15,6 @@ abstract class GeneralDao {
   @Update(onConflict: OnConflictStrategy.replace)
   Future<void> updateGeneral(GeneralDto general);
 
-  @Query('DELETE FROM Generals WHERE id_partograph = :partographId')
+  @Query('DELETE FROM generals WHERE partograph_id = :partographId')
   Future<void> deleteGeneral(int partographId);
 }
