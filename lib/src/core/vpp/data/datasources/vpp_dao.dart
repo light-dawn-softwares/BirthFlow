@@ -4,7 +4,7 @@ import 'package:floor/floor.dart';
 @dao
 abstract class VppDao {
 
- @Query('SELECT * FROM Vvp WHERE partographId = :idVpp')
+ @Query('SELECT * FROM Vvp WHERE partographId = :partographId')
  Future<List<VppDto>?> findById(int partographId);
 
  @insert
