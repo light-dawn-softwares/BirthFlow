@@ -1,12 +1,22 @@
+import 'package:birthflow/src/core/general/data/models/general_local.dart';
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'Vpp')
+@Entity(
+  tableName: 'vpps',
+  foreignKeys: [
+    ForeignKey(
+      childColumns: ['partograph_id'],
+      parentColumns: ['partograph_id'],
+      entity: GeneralDto,
+    ),
+  ],
+)
 class VppDto {
   @primaryKey
   @ColumnInfo(name: 'idVpp')
   final int? idVpp;
 
-  @ColumnInfo(name: 'partographId')
+  @ColumnInfo(name: 'partograph_id')
   final int partographId;
 
   @ColumnInfo(name: 'position')

@@ -1,27 +1,37 @@
+import 'package:birthflow/src/core/general/data/models/general_local.dart';
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'CervicalDilations')
+@Entity(
+  tableName: 'cervical_dilations',
+  foreignKeys: [
+    ForeignKey(
+      childColumns: ['partograph_id'],
+      parentColumns: ['partograph_id'],
+      entity: GeneralDto,
+    ),
+  ],
+)
 class CervicalDilationDto {
- @PrimaryKey(autoGenerate: true)
- final int? idCervicalDilation;
+  @PrimaryKey(autoGenerate: true)
+  final int? idCervicalDilation;
 
- @ColumnInfo(name: 'id_partograph')
- final int partographId;
+  @ColumnInfo(name: 'partograph_id')
+  final int partographId;
 
- @ColumnInfo(name: 'value')
- final String value;
+  @ColumnInfo(name: 'value')
+  final String value;
 
- @ColumnInfo(name: 'time')
- final String time;
+  @ColumnInfo(name: 'time')
+  final String time;
 
- @ColumnInfo(name: 'ram_or_rem')
- final String ramOrRem;
+  @ColumnInfo(name: 'ram_or_rem')
+  final String ramOrRem;
 
- CervicalDilationDto({
+  CervicalDilationDto({
     this.idCervicalDilation,
     required this.partographId,
     required this.value,
     required this.time,
     required this.ramOrRem,
- });
+  });
 }

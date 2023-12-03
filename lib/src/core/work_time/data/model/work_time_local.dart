@@ -5,10 +5,10 @@ import 'package:floor/floor.dart';
   tableName: 'work_times',
   foreignKeys: [
     ForeignKey(
-      childColumns: ['generals'],
+      childColumns: ['partograph_id'],
       parentColumns: ['partograph_id'],
       entity: GeneralDto,
-    )
+    ),
   ],
 )
 class WorkTimeDto {
