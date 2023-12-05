@@ -9,8 +9,8 @@ abstract class GeneralDao {
   @Query('SELECT * FROM generals WHERE partograph_id = :partographId')
   Future<GeneralDto?> findGeneralById(int partographId);
 
-  @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> insertGeneral(GeneralDto general);
+  @insert
+  Future<int> insertGeneral(GeneralDto general);
 
   @Update(onConflict: OnConflictStrategy.replace)
   Future<void> updateGeneral(GeneralDto general);
