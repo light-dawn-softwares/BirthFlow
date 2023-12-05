@@ -39,11 +39,11 @@ class _ChartState extends State<ChartScreen> {
       DeviceOrientation.landscapeLeft,
     ]);
 
-      void changedScrollFab(int page) {
-    setState(() {
-      _scrollFab = page;
-    });
-  }
+    void changedScrollFab(int page) {
+      setState(() {
+        _scrollFab = page;
+      });
+    }
 
     final List<Widget> fabs = [
       ExpandableFab(
