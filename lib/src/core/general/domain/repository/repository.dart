@@ -3,7 +3,7 @@ import 'package:birthflow/src/core/general/domain/models/general.dart';
 abstract class GeneralRepository {
   Future<List<General>> get();
 
-  Future<void> create({
+  Future<General?> create({
     required String name,
     required String recordNumber,
     required DateTime date,

@@ -1,31 +1,42 @@
 import 'package:birthflow/src/core/general/data/datasources/general_dao.dart';
+import 'package:birthflow/src/core/general/data/mapper/local_mapper.dart';
 import 'package:birthflow/src/core/general/data/models/general_local.dart';
 import 'package:birthflow/src/core/general/domain/models/general.dart';
 import 'package:birthflow/src/core/general/domain/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class GeneralRepositoyImplementation implements GeneralRepository {
+class GeneralRepositoryImplementation implements GeneralRepository {
   final GeneralDao generalDao;
 
-  GeneralRepositoyImplementation({required this.generalDao});
+  GeneralRepositoryImplementation({required this.generalDao});
 
   @override
-  Future<void> create({
+  Future<General?> create({
     required String name,
     required String recordNumber,
     required DateTime date,
   }) async {
     try {
-      generalDao.insertGeneral(
+      final generatedId = await generalDao.insertGeneral(
         GeneralDto(
           name: name,
           recordNumber: recordNumber,
-          date: DateFormat.yMMMd().format(date),
+          date: date.toString(),
         ),
       );
+
+      final insertedGeneral = General(
+        partographId: generatedId,
+        name: name,
+        recordNumber: recordNumber,
+        date: date,
+      );
+
+      return insertedGeneral;
     } catch (e) {
       debugPrint(e.toString());
+      return null;
     }
   }
 
@@ -54,7 +65,7 @@ class GeneralRepositoyImplementation implements GeneralRepository {
     try {
       final resultList = await generalDao.findAllGenerals();
       final generalList = resultList
-          .map((generalDto) => General.fromJson(generalDto.toJson()))
+          .map((generalDto) => GeneralLocalMapper.transformToModel(generalDto))
           .toList();
       return generalList;
     } catch (e) {
