@@ -49,6 +49,7 @@ dev_dependencies:
   auto_route_generator: ^7.3.1
   build_runner: ^2.4.6
   floor_generator: ^1.4.2
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
   freezed: ^2.4.5
@@ -97,3 +98,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+flutter_icons:
+  image_path: "lib/src/assets/images/icono-app.png"
+  android: "launcher_icon"
+  ios: true
+  min_sdk_android: 21
+  # También puedes agregar un nombre personalizado
+  # nombre de la aplicación en la siguiente línea
+  name: "Birth Flow v1 Dev "
