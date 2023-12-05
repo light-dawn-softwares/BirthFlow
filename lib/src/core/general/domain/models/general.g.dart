@@ -8,7 +8,7 @@ part of 'general.dart';
 
 _$GeneralImpl _$$GeneralImplFromJson(Map<String, dynamic> json) =>
     _$GeneralImpl(
-      partographId: json['partographId'] as String,
+      partographId: json['partographId'] as int,
       name: json['name'] as String,
       recordNumber: json['recordNumber'] as String,
       date: DateTime.parse(json['date'] as String),
