@@ -20,7 +20,7 @@ General _$GeneralFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$General {
-  String get partographId => throw _privateConstructorUsedError;
+  int get partographId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get recordNumber => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $GeneralCopyWith<$Res> {
       _$GeneralCopyWithImpl<$Res, General>;
   @useResult
   $Res call(
-      {String partographId, String name, String recordNumber, DateTime date});
+      {int partographId, String name, String recordNumber, DateTime date});
 }
 
 /// @nodoc
@@ -61,7 +61,7 @@ class _$GeneralCopyWithImpl<$Res, $Val extends General>
       partographId: null == partographId
           ? _value.partographId
           : partographId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -86,7 +86,7 @@ abstract class _$$GeneralImplCopyWith<$Res> implements $GeneralCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String partographId, String name, String recordNumber, DateTime date});
+      {int partographId, String name, String recordNumber, DateTime date});
 }
 
 /// @nodoc
@@ -109,7 +109,7 @@ class __$$GeneralImplCopyWithImpl<$Res>
       partographId: null == partographId
           ? _value.partographId
           : partographId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -139,7 +139,7 @@ class _$GeneralImpl implements _General {
       _$$GeneralImplFromJson(json);
 
   @override
-  final String partographId;
+  final int partographId;
   @override
   final String name;
   @override
@@ -186,7 +186,7 @@ class _$GeneralImpl implements _General {
 
 abstract class _General implements General {
   factory _General(
-      {required final String partographId,
+      {required final int partographId,
       required final String name,
       required final String recordNumber,
       required final DateTime date}) = _$GeneralImpl;
@@ -194,7 +194,7 @@ abstract class _General implements General {
   factory _General.fromJson(Map<String, dynamic> json) = _$GeneralImpl.fromJson;
 
   @override
-  String get partographId;
+  int get partographId;
   @override
   String get name;
   @override

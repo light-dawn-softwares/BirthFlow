@@ -6,7 +6,7 @@ part 'general.g.dart';
 @freezed
 sealed class General with _$General {
  factory General({
-    required String partographId,
+    required int partographId,
     required String name,
     required String recordNumber,
     required DateTime date,
