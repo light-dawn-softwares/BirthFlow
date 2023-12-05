@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:birthflow/src/config/router/app_router.dart';
+import 'package:birthflow/src/presentation/home/bloc/bloc.dart';
+import 'package:birthflow/src/presentation/home/bloc/state/state.dart';
+import 'package:birthflow/src/presentation/home/widgets/item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -76,79 +80,45 @@ class _HomeState extends State<HomeScreen> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    if (index == 0) {
-                      return const ListTile(
-                        leading: Icon(Icons.archive),
-                        title: Text('Archivados'),
-                      );
-                    } else {
-                      return ListTile(
-                        titleAlignment: ListTileTitleAlignment.center,
-                        title: Text('Partograma $index'),
-                        trailing: const SizedBox(
-                          width: 100,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('01/01/2023'),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  if (true) Icon(Icons.push_pin),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          context.router.push(const PartographRoute());
-                        },
-                        subtitle: const Text('012HMK231D2095 - 01/01/2023'),
-                        onLongPress: () => showModalBottomSheet<void>(
-                          context: context,
-                          showDragHandle: true,
-                          builder: (BuildContext context) {
-                            return SizedBox(
-                              height: 120,
-                              child: Center(
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          icon: const Icon(Icons.push_pin),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.delete),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
+          BlocBuilder<GeneralBloc, GeneralState>(
+            builder: (context, state) {
+              return state.when(
+                initial: () => const Center(child: CircularProgressIndicator()),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                loaded: (generalData) {
+                  return CustomScrollView(
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            if (index == 0) {
+                              return const ListTile(
+                                leading: Icon(Icons.archive),
+                                title: Text('Archivados'),
+                              );
+                            } else {
+                              // Aquí deberías utilizar los datos generales que obtuviste del Bloc
+                              final item = generalData[index - 1];
+                              return ListItemWidget(
+                                title: item.name,
+                                subtitle:
+                                    '${item.recordNumber}-${item.date.toIso8601String()}',
+                              );
+                            }
                           },
+                          childCount: generalData.length + 1,
                         ),
-                      );
-                    }
-                  },
-                  childCount: 2,
+                      ),
+                    ],
+                  );
+                },
+                error: (errorMessage) =>
+                    Center(child: Text('Error: $errorMessage')),
+                empty: () => const Center(
+                  child: Text('No hay datos'),
                 ),
-              ),
-            ],
+              );
+            },
           ),
         ],
       ),
