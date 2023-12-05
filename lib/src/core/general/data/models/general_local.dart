@@ -24,9 +24,9 @@ class GeneralDto {
 
   Map<String, dynamic> toJson() {
     return {
-      'id_partograph': partographId,
+      'partographId': partographId,
       'name': name,
-      'record_number': recordNumber,
+      'recordNumber': recordNumber,
       'date': date,
     };
   }
