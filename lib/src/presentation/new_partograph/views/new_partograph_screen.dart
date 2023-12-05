@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:birthflow/src/core/general/domain/usecases/create_usecase_imp.dart';
 import 'package:birthflow/src/core/work_time/domain/models/lib/membranas.dart';
 import 'package:birthflow/src/core/work_time/domain/models/lib/paridad.dart';
 import 'package:birthflow/src/core/work_time/domain/models/lib/posicion.dart';
 import 'package:birthflow/src/core/work_time/domain/models/work_time.dart';
+import 'package:birthflow/src/core/work_time/domain/usecases/create_usecase.dart';
+import 'package:birthflow/src/locator.dart';
+import 'package:birthflow/src/presentation/new_partograph/view_model/view_model.dart';
 import 'package:birthflow/src/presentation/widgets/work_time/work_time_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -127,8 +131,32 @@ class _NewPartographState extends State<NewPartographScreen>
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-              child: WorkTimeTableWidget(
-                currentWorkTime: workTime,
+              child: Column(
+                children: [
+                  WorkTimeTableWidget(
+                    currentWorkTime: workTime,
+                  ),
+                  FilledButton(
+                    onPressed: () async {
+                      final viewModel = PartographViewModel(
+                        generalCreateUseCase: locator<GeneralCreateUseCase>(),
+                        workTimeCreateUseCase: locator<WorkTimeCreateUseCase>(),
+                      );
+                      final generated = await viewModel.createGeneral(
+                        name: _nameTextController.text,
+                        recordNumber: _recordNumberTextController.text,
+                        date: DateTime.parse(_dateTextController.text),
+                      );
+                      await viewModel.createWorkTime(
+                        partographId: generated!.partographId,
+                        posicion: workTime.posicion,
+                        paridad: workTime.paridad,
+                        membranas: workTime.membranas,
+                      );
+                    },
+                    child: const Text('Guardar'),
+                  ),
+                ],
               ),
             ),
           ],
