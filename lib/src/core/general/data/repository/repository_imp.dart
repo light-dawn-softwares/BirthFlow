@@ -53,7 +53,7 @@ class GeneralRepositoryImplementation implements GeneralRepository {
   Future<General?> findById({required int partographId}) async {
     try {
       final result = await generalDao.findGeneralById(partographId);
-      return General.fromJson(result!.toJson());
+      return GeneralLocalMapper.transformToModel(result!);
     } catch (e) {
       debugPrint(e.toString());
       return null;
