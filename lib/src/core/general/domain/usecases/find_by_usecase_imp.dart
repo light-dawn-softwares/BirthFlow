@@ -5,7 +5,7 @@ import 'package:birthflow/src/core/general/domain/usecases/find_by_usecase.dart'
 class GeneralFindByUseCaseImplementation implements GeneralFindByUseCase {
   final GeneralRepository _repository;
 
-  GeneralFindByUseCaseImplementation({required GeneralRepository repository})
+  GeneralFindByUseCaseImplementation(GeneralRepository repository)
       : _repository = repository;
 
   @override
