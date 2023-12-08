@@ -40,9 +40,16 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     PartographRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<PartographRouteArgs>(
+          orElse: () => PartographRouteArgs(
+              partographId: pathParams.getInt('partographId')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: PartographScreen(),
+        child: PartographScreen(
+          key: args.key,
+          partographId: args.partographId,
+        ),
       );
     },
   };
@@ -106,14 +113,39 @@ class NewPartographRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [PartographScreen]
-class PartographRoute extends PageRouteInfo<void> {
-  const PartographRoute({List<PageRouteInfo>? children})
-      : super(
+class PartographRoute extends PageRouteInfo<PartographRouteArgs> {
+  PartographRoute({
+    Key? key,
+    required int partographId,
+    List<PageRouteInfo>? children,
+  }) : super(
           PartographRoute.name,
+          args: PartographRouteArgs(
+            key: key,
+            partographId: partographId,
+          ),
+          rawPathParams: {'partographId': partographId},
           initialChildren: children,
         );
 
   static const String name = 'PartographRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<PartographRouteArgs> page =
+      PageInfo<PartographRouteArgs>(name);
+}
+
+class PartographRouteArgs {
+  const PartographRouteArgs({
+    this.key,
+    required this.partographId,
+  });
+
+  final Key? key;
+
+  final int partographId;
+
+  @override
+  String toString() {
+    return 'PartographRouteArgs{key: $key, partographId: $partographId}';
+  }
 }
