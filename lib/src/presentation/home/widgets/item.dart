@@ -3,8 +3,14 @@ import 'package:birthflow/src/config/router/app_router.dart';
 import 'package:flutter/material.dart';
 
 class ListItemWidget extends StatefulWidget {
-  const ListItemWidget({super.key, required this.title, required this.subtitle});
+  const ListItemWidget({
+    super.key,
+    required this.partographId,
+    required this.title,
+    required this.subtitle,
+  });
 
+  final int partographId;
   final String title;
   final String subtitle;
 
@@ -36,7 +42,11 @@ class _ListItemState extends State<ListItemWidget> {
         ),
       ),
       onTap: () {
-        context.router.push(const PartographRoute());
+        context.router.push(
+          PartographRoute(
+            partographId: widget.partographId,
+          ),
+        );
       },
       subtitle: Text(widget.subtitle),
       onLongPress: () => showModalBottomSheet<void>(
