@@ -100,6 +100,7 @@ class _HomeState extends State<HomeScreen> with TickerProviderStateMixin {
                               // Aquí deberías utilizar los datos generales que obtuviste del Bloc
                               final item = generalData[index - 1];
                               return ListItemWidget(
+                                partographId: item.partographId,
                                 title: item.name,
                                 subtitle:
                                     '${item.recordNumber}-${item.date.toIso8601String()}',
