@@ -1,6 +1,6 @@
 /// The `UpdateGeneralUseCase` class is an abstract class that defines a method for updating general
 /// information related to a partograph.
-abstract class UpdateGeneralUseCase {
+abstract class GeneralUpdateUseCase {
   /// The `execute` method is a function signature that defines the parameters and return type for
   /// updating general information related to a partograph.
   Future<void> execute({
