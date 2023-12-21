@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:birthflow/src/config/router/app_router.dart';
 import 'package:birthflow/src/core/general/domain/usecases/create_usecase_imp.dart';
 import 'package:birthflow/src/core/work_time/domain/models/lib/membranas.dart';
 import 'package:birthflow/src/core/work_time/domain/models/lib/paridad.dart';
@@ -153,6 +154,11 @@ class _NewPartographState extends State<NewPartographScreen>
                         posicion: workTime.posicion,
                         paridad: workTime.paridad,
                         membranas: workTime.membranas,
+                      );
+                      context.router.push(
+                        PartographRoute(
+                          partographId: generated.partographId,
+                        ),
                       );
                     },
                     child: const Text('Guardar'),
