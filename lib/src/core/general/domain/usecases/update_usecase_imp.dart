@@ -3,10 +3,10 @@ import 'package:birthflow/src/core/general/domain/usecases/update_usecase.dart';
 
 /// The `UpdateGeneralUseCaseImplementation` class is an implementation of the `UpdateGeneralUseCase`
 /// interface that updates a general entity using a repository.
-class UpdateGeneralUseCaseImplementation implements UpdateGeneralUseCase {
+class GeneralUpdateUseCaseImplementation implements GeneralUpdateUseCase {
   final GeneralRepository _repository;
 
-  const UpdateGeneralUseCaseImplementation(this._repository);
+  const GeneralUpdateUseCaseImplementation(this._repository);
 
   @override
   Future<void> execute({
