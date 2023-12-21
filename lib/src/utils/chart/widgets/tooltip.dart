@@ -41,7 +41,7 @@ class TooltipSymbolRenderer extends e.CircleSymbolRenderer {
     textStyle.fontSize = 15;
     canvas.drawText(
       TextElement(value, style: textStyle),
-      (bounds.left).round(),
+      bounds.left.round(),
       (bounds.top + 28).round(),
     );
   }

@@ -43,6 +43,7 @@ class _NewPartographState extends State<NewPartographScreen>
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         final willPopScope = await showWarning(context);

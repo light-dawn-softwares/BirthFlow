@@ -42,17 +42,18 @@ class MedicalSurveillanceLocalMapper {
     );
   }
 
-  static MedicalSurveillanceDto newDao(
-      {required int partographId,
-      required String header,
-      required DateTime time,
-      required String maternalPosition,
-      required String arterialPressure,
-      required String maternalPulse,
-      required String fetalHeartRate,
-      required String frequencyContractions,
-      required String contractionsDuration,
-      required Pain pain}) {
+  static MedicalSurveillanceDto newDao({
+    required int partographId,
+    required String header,
+    required DateTime time,
+    required String maternalPosition,
+    required String arterialPressure,
+    required String maternalPulse,
+    required String fetalHeartRate,
+    required String frequencyContractions,
+    required String contractionsDuration,
+    required Pain pain,
+  }) {
     return MedicalSurveillanceDto(
       partographID: partographId,
       header: header,

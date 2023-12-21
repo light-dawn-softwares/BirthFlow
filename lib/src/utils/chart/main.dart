@@ -20,7 +20,8 @@ class MainChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final secondaryMeasureFormatter = charts.BasicNumericTickFormatterSpec((value) {
+    final secondaryMeasureFormatter =
+        charts.BasicNumericTickFormatterSpec((value) {
       if (value! >= 0 && value <= 11) {
         return (90 + value * 10).toString();
       } else {
@@ -39,7 +40,8 @@ class MainChart extends StatelessWidget {
           : '$result:${startTime.minute}';
     });
 
-    final primaryMeasureFormatter = charts.BasicNumericTickFormatterSpec((value) {
+    final primaryMeasureFormatter =
+        charts.BasicNumericTickFormatterSpec((value) {
       if (value == 11) {
         return 'Parto';
       } else {
@@ -105,7 +107,7 @@ class MainChart extends StatelessWidget {
           customRendererId: 'alertNewCurveLine',
           includePoints: true,
           layoutPaintOrder: charts.LayoutViewPaintOrder.point + 1,
-        )
+        ),
       ],
       behaviors: [
         charts.RangeAnnotation([
@@ -161,7 +163,7 @@ class MainChart extends StatelessWidget {
               TooltipSymbolRenderer.value = result; // paints the tapped value
             }
           },
-        )
+        ),
       ],
     );
   }
