@@ -1,19 +1,57 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:birthflow/src/config/router/app_router.dart';
+import 'package:birthflow/src/core/general/domain/usecases/find_by_usecase.dart';
+import 'package:birthflow/src/core/general/domain/usecases/update_usecase.dart';
+import 'package:birthflow/src/locator.dart';
+import 'package:birthflow/src/presentation/home/bloc/home_list/bloc.dart';
+import 'package:birthflow/src/presentation/home/bloc/home_list/state/state.dart';
+import 'package:birthflow/src/presentation/partograph/blocs/general/bloc.dart';
+import 'package:birthflow/src/presentation/partograph/blocs/general/state/state.dart';
 import 'package:birthflow/src/presentation/partograph/lib/chart.dart';
+import 'package:birthflow/src/presentation/partograph/widgets/cervical_dilation_card_widget.dart';
+import 'package:birthflow/src/presentation/partograph/widgets/general_card_widget.dart';
+import 'package:birthflow/src/presentation/partograph/widgets/medical_surveillance_card_widget.dart';
+import 'package:birthflow/src/presentation/partograph/widgets/vpp_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class PartographScreen extends StatefulWidget {
+class PartographScreen extends StatelessWidget {
+  final int partographId;
+
+  // ignore: use_super_parameters
+  const PartographScreen({
+    Key? key,
+    @PathParam('partographId') required this.partographId,
+  }) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _PartographState();
+  Widget build(BuildContext context) {
+    return BlocListener<GeneralItemBloc, GeneralItemState>(
+      listener: (context, state) {
+        if (state is UpdateGeneralData) {
+          BlocProvider.of<GeneralBloc>(context)
+              .add(const GeneralEvent.fetchGeneralData());
+        }
+      },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            lazy: false,
+            create: (BuildContext context) => GeneralItemBloc(
+              locator<GeneralFindByUseCase>(),
+              locator<GeneralUpdateUseCase>(),
+            )..add(GeneralItemEvent.fetchGeneralData(partographId)),
+          ),
+        ],
+        child: _PartographView(),
+      ),
+    );
+  }
 }
 
-class _PartographState extends State<PartographScreen> {
-  final PageController controller = PageController();
-  final PageController controller2 = PageController();
-
+class _PartographView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -44,45 +82,24 @@ class _PartographState extends State<PartographScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(
-                            top: 25,
-                            bottom: 5,
+                    BlocBuilder<GeneralItemBloc, GeneralItemState>(
+                      builder: (BuildContext context, GeneralItemState state) {
+                        return state.when(
+                          initial: () => const Center(
+                            child: CircularProgressIndicator(),
                           ),
-                          width: 250, // Establece el ancho que desees
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Maria Antonia De los Angeles Sanchez',
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: Text(
-                                  'Expediente - Fecha 1',
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ),
-                            ],
+                          loading: () => const Center(
+                            child: CircularProgressIndicator(),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text('Modificar'),
-                            ),
-                          ],
-                        ),
-                      ],
+                          empty: () => const Text('No hay dato??'),
+                          loaded: (generalData) => GeneralCardWidget(
+                            general: generalData,
+                            // ignore: void_checks
+                            callback: context.read<GeneralItemBloc>().add,
+                          ),
+                          error: (error) => Text(error),
+                        );
+                      },
                     ),
                     const Divider(
                       indent: 10,
@@ -103,98 +120,17 @@ class _PartographState extends State<PartographScreen> {
                       indent: 10,
                       endIndent: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Dilataciones cervicales',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text('Añadir'),
-                        ),
-                      ],
-                    ),
-                    DataTable(
-                      columns: const <DataColumn>[
-                        DataColumn(
-                          label: Expanded(
-                            child: Text(
-                              'Dilatacion',
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Expanded(
-                            flex: 2,
-                            child: Text(
-                              'Ram o Rem',
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Expanded(
-                            child: Text(
-                              'Fecha y Hora',
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
-                          ),
-                        ),
-                      ],
-                      rows: <DataRow>[
-                        DataRow(
-                          cells: <DataCell>[
-                            const DataCell(Text('5')),
-                            DataCell(
-                              Checkbox(
-                                value: true,
-                                onChanged: (bool? value) {},
-                              ),
-                            ),
-                            DataCell(Text(DateTime.now().toString())),
-                          ],
-                        ),
-                        DataRow(
-                          cells: <DataCell>[
-                            const DataCell(Text('7')),
-                            DataCell(
-                              Checkbox(
-                                value: true,
-                                onChanged: (bool? value) {},
-                              ),
-                            ),
-                            DataCell(Text(DateTime.now().toString())),
-                          ],
-                        ),
-                        DataRow(
-                          cells: <DataCell>[
-                            const DataCell(Text('6')),
-                            DataCell(
-                              Checkbox(
-                                value: true,
-                                onChanged: (bool? value) {},
-                              ),
-                            ),
-                            DataCell(Text(DateTime.now().toString())),
-                          ],
-                        ),
-                      ],
-                    ),
+                    const CervicalDilationCardWidget(),
                     const Divider(
                       indent: 10,
                       endIndent: 10,
                     ),
-                    Text(
-                      'Nota de Parto',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                    const VppCardWidget(),
+                    const Divider(
+                      indent: 10,
+                      endIndent: 10,
                     ),
-                    TextField(
-                      controller: TextEditingController(text: 'Hola'),
-                      readOnly: true,
-                    )
+                    const MedicalSurveillanceCardWidget(),
                   ],
                 ),
               ),
