@@ -47,8 +47,9 @@ class MedicalSurveillanceRepositoryImplementation
   }
 
   @override
-  Future<void> deleteMedicalSurveillance(
-      {required int medicalSurveillanceId}) async {
+  Future<void> deleteMedicalSurveillance({
+    required int medicalSurveillanceId,
+  }) async {
     try {
       await _medicalSurveillanceDao
           .deleteMedicalSurveillance(medicalSurveillanceId);
@@ -65,8 +66,10 @@ class MedicalSurveillanceRepositoryImplementation
       final resultList = await _medicalSurveillanceDao
           .findMedicalSurveillanceById(medicalSurveillanceId);
       final medicalSurveillanceList = resultList
-          .map((medicalSurveillanceDto) =>
-              MedicalSurveillanceLocalMapper.fromDto(medicalSurveillanceDto))
+          .map(
+            (medicalSurveillanceDto) =>
+                MedicalSurveillanceLocalMapper.fromDto(medicalSurveillanceDto),
+          )
           .toList();
       return medicalSurveillanceList;
     } catch (e) {

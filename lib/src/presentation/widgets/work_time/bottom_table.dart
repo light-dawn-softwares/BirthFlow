@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ButtonTableWidget extends StatelessWidget {
-  const ButtonTableWidget(
-      {super.key,
-      this.callback,
-      required this.textData,
-      required this.conditionValue});
+  const ButtonTableWidget({
+    super.key,
+    this.callback,
+    required this.textData,
+    required this.conditionValue,
+  });
   final Function? callback;
   final String textData;
 

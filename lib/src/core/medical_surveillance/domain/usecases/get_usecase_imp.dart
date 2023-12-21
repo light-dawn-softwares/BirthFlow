@@ -9,9 +9,11 @@ class GetMedicalSurveillanceUseCaseImplementation
   GetMedicalSurveillanceUseCaseImplementation(this._repository);
 
   @override
-  Future<List<MedicalSurveillanceItem>> execute(
-      {required int medicalSurveillanceId}) async {
+  Future<List<MedicalSurveillanceItem>> execute({
+    required int medicalSurveillanceId,
+  }) async {
     return await _repository.findMedicalSurveillanceById(
-        medicalSurveillanceId: medicalSurveillanceId);
+      medicalSurveillanceId: medicalSurveillanceId,
+    );
   }
 }
