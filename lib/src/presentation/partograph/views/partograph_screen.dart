@@ -3,8 +3,6 @@ import 'package:birthflow/src/config/router/app_router.dart';
 import 'package:birthflow/src/core/general/domain/usecases/find_by_usecase.dart';
 import 'package:birthflow/src/core/general/domain/usecases/update_usecase.dart';
 import 'package:birthflow/src/locator.dart';
-import 'package:birthflow/src/presentation/home/bloc/home_list/bloc.dart';
-import 'package:birthflow/src/presentation/home/bloc/home_list/state/state.dart';
 import 'package:birthflow/src/presentation/partograph/blocs/general/bloc.dart';
 import 'package:birthflow/src/presentation/partograph/blocs/general/state/state.dart';
 import 'package:birthflow/src/presentation/partograph/lib/chart.dart';
@@ -28,25 +26,16 @@ class PartographScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GeneralItemBloc, GeneralItemState>(
-      listener: (context, state) {
-        if (state is UpdateGeneralData) {
-          BlocProvider.of<GeneralBloc>(context)
-              .add(const GeneralEvent.fetchGeneralData());
-        }
-      },
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            lazy: false,
-            create: (BuildContext context) => GeneralItemBloc(
-              locator<GeneralFindByUseCase>(),
-              locator<GeneralUpdateUseCase>(),
-            )..add(GeneralItemEvent.fetchGeneralData(partographId)),
-          ),
-        ],
-        child: _PartographView(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => GeneralItemBloc(
+            locator<GeneralFindByUseCase>(),
+            locator<GeneralUpdateUseCase>(),
+          )..add(GeneralItemEvent.fetchGeneralData(partographId)),
+        ),
+      ],
+      child: _PartographView(),
     );
   }
 }
@@ -66,6 +55,18 @@ class _PartographView extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(Icons.notifications),
           ),
+       /*   IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.archive),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.delete),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications),
+          ),*/
         ],
         elevation: 2,
       ),
@@ -94,7 +95,6 @@ class _PartographView extends StatelessWidget {
                           empty: () => const Text('No hay dato??'),
                           loaded: (generalData) => GeneralCardWidget(
                             general: generalData,
-                            // ignore: void_checks
                             callback: context.read<GeneralItemBloc>().add,
                           ),
                           error: (error) => Text(error),
@@ -120,7 +120,7 @@ class _PartographView extends StatelessWidget {
                       indent: 10,
                       endIndent: 10,
                     ),
-                    const CervicalDilationCardWidget(),
+                    const CervicalDilationCardWidget(list: []),
                     const Divider(
                       indent: 10,
                       endIndent: 10,

@@ -1,6 +1,5 @@
 import 'package:birthflow/src/core/general/data/models/general_local.dart';
 import 'package:birthflow/src/core/general/domain/models/general.dart';
-import 'package:intl/intl.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class GeneralLocalMapper {
@@ -17,7 +16,7 @@ class GeneralLocalMapper {
       partographId: dto.partographId!,
       name: dto.name,
       recordNumber: dto.recordNumber,
-      date:  DateFormat.yMMMd().parse(dto.date),
+      date:  DateTime.parse(dto.date),
     );
   }
 }
