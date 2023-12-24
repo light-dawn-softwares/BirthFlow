@@ -87,7 +87,7 @@ class GeneralRepositoryImplementation implements GeneralRepository {
           partographId: partographId,
           name: name,
           recordNumber: recordNumber,
-          date: DateFormat.yMMMd().format(date),
+          date: date.toIso8601String(),
         ),
       );
     } catch (e) {
