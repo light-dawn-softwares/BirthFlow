@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:birthflow/src/core/general/domain/models/general.dart';
 import 'package:birthflow/src/presentation/partograph/blocs/general/state/state.dart';
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 
 class GeneralCardWidget extends StatelessWidget {
@@ -114,88 +113,100 @@ class _CustomModalState extends State<CustomModal> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextField(
-              controller: _nameTextController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Nombre',
-                hintText: 'Ingrese el nombre',
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.56,
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: Text(
+                'Modificar datos',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextField(
-              controller: _recordNumberTextController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Expediente',
-                hintText: 'Ingrese el numero de expediente',
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextFormField(
-              controller: _dateTextController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Tiempo',
-              ),
-              readOnly: true,
-              onTap: () async {
-                final DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2101),
-                );
-
-                if (pickedDate != null) {
-                  final String formattedDate =
-                      DateFormat('yyyy-MM-dd').format(pickedDate);
-
-                  setState(() {
-                    _dateTextController.text = formattedDate;
-                  });
-                }
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context); // Cierra el modal sin hacer nada
-                  },
-                  child: const Text('Cancelar'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextField(
+                controller: _nameTextController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Nombre',
+                  hintText: 'Ingrese el nombre',
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    widget.callback(
-                      UpdateGeneralData(
-                        widget.partographId,
-                        _nameTextController.text,
-                        _recordNumberTextController.text,
-                        DateTime.parse(_dateTextController.text),
-                      ),
-                    );
-                    context.popRoute();
-                  },
-                  child: const Text('Aceptar'),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextField(
+                controller: _recordNumberTextController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Expediente',
+                  hintText: 'Ingrese el numero de expediente',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextFormField(
+                controller: _dateTextController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Tiempo',
+                ),
+                readOnly: true,
+                onTap: () async {
+                  final DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2101),
+                  );
+
+                  if (pickedDate != null) {
+                    final String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                    setState(() {
+                      _dateTextController.text = formattedDate;
+                    });
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Cierra el modal sin hacer nada
+                    },
+                    child: const Text('Cancelar'),
+                  ),
+                  const SizedBox(width: 10,),
+                  ElevatedButton(
+                    onPressed: () {
+                      widget.callback(
+                        UpdateGeneralData(
+                          widget.partographId,
+                          _nameTextController.text,
+                          _recordNumberTextController.text,
+                          DateTime.parse(_dateTextController.text),
+                        ),
+                      );
+                      context.popRoute();
+                    },
+                    child: const Text('Aceptar'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
