@@ -7,6 +7,8 @@ import 'package:birthflow/src/core/general/domain/usecases/find_by_usecase.dart'
 import 'package:birthflow/src/core/general/domain/usecases/find_by_usecase_imp.dart';
 import 'package:birthflow/src/core/general/domain/usecases/get_usecase.dart';
 import 'package:birthflow/src/core/general/domain/usecases/get_usecase_imp.dart';
+import 'package:birthflow/src/core/general/domain/usecases/update_usecase.dart';
+import 'package:birthflow/src/core/general/domain/usecases/update_usecase_imp.dart';
 import 'package:birthflow/src/core/work_time/data/repository/repository_imp.dart';
 import 'package:birthflow/src/core/work_time/domain/repository/repository.dart';
 import 'package:birthflow/src/core/work_time/domain/usecases/create_usecase.dart';
@@ -36,10 +38,13 @@ Future<void> initializeDependencies() async {
     () => GeneralGetUseCaseImplementation(locator<GeneralRepository>()),
   );
 
- locator.registerLazySingleton<GeneralFindByUseCase>(
+  locator.registerLazySingleton<GeneralFindByUseCase>(
     () => GeneralFindByUseCaseImplementation(locator<GeneralRepository>()),
   );
 
+  locator.registerLazySingleton<GeneralUpdateUseCase>(
+    () => GeneralUpdateUseCaseImplementation(locator<GeneralRepository>()),
+  );
 
   locator.registerLazySingleton<WorkTimeCreateUseCase>(
     () => WorkTimeCreateUseCaseImplementation(locator<WorkTimeRepository>()),

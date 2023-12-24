@@ -16,7 +16,11 @@ class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
     emit(const GeneralState.loading());
     try {
       final generalData = await getGeneralUseCase.execute();
-      emit(GeneralState.loaded(generalData));
+      if (generalData.isEmpty) {
+        emit(const GeneralState.empty());
+      } else {
+        emit(GeneralState.loaded(generalData));
+      }
     } catch (e) {
       emit(const GeneralState.error('Error al cargar los datos generales'));
     }
